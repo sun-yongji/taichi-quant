@@ -1,7 +1,0 @@
-numpy>=1.21
-
-[all]
-taichi-quant[dev]
-
-[dev]
-pytest>=7
