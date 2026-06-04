@@ -1,0 +1,60 @@
+# TaiChi-Quant: C6 Symmetry-Driven Quantization
+
+Hexagram-inspired bit allocation for model compression — six quantization levels
+map to six yao positions, hexagonal coupling governs layer-group sharing.
+
+## Overview
+
+Standard quantization treats all layers uniformly. TaiChi-Quant uses C6
+symmetry analysis to assign optimal bit-widths per layer group:
+
+| Yao | Level | Bits | Sensitivity | Use case |
+|-----|-------|------|-------------|----------|
+| 初爻 | Q2_K | 2 | Very low | Embedding, shallow layers |
+| 二爻 | Q3_K | 3 | Low | Early attention |
+| 三爻 | Q4_K | 4 | Moderate | Mid MLP |
+| 四爻 | Q5_K | 5 | Medium-high | Deep attention |
+| 五爻 | Q6_K | 6 | High | Late MLP |
+| 上爻 | Q8_0 | 8 | Critical | Output projection, head |
+
+Six layers are grouped into hexagonal coupling groups — layers in the same
+group can share quantization parameters, reducing metadata overhead.
+
+## Quick Start
+
+```python
+import numpy as np
+from taichi_quant import QuantEngine, quick_assess
+
+# Simulated model layers
+tensors = {
+    "embed": np.random.randn(32000, 4096) * 0.02,
+    "layer.0.attn.q": np.random.randn(4096, 4096) * 0.1,
+    "layer.0.mlp.down": np.random.randn(14336, 4096) * 0.15,
+    "layer.1.attn.q": np.random.randn(4096, 4096) * 0.12,
+    "layer.1.mlp.down": np.random.randn(14336, 4096) * 0.18,
+    "output": np.random.randn(4096, 32000) * 0.05,
+}
+
+# Quick assessment
+results = quick_assess(tensors)
+for r in results:
+    print(f"{r['name']:25s} → {r['level']:5s} ({r['bits']}bit)  MAE={r['mae']:.6f}")
+
+# Full strategy
+engine = QuantEngine(target_compression=4.0)
+profiles = engine.profiler.profile_many(tensors)
+config = engine.strategize(profiles)
+
+print(f"\nOverall: {config.overall_compression}x compression, "
+      f"avg fidelity loss={config.avg_fidelity_loss:.4f}")
+```
+
+## License
+
+Apache 2.0 — see LICENSE file.
+
+## Part of TaiChi-Matrix
+
+M3 module of the TaiChi-Matrix: Eastern-Numerology-Driven MoE Training
+& Quantization Open-Source Toolkit for CCF OSS 2026.
