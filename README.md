@@ -1,3 +1,5 @@
+﻿[![CI](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml/badge.svg)](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml)
+
 # TaiChi-Quant ⚖️ C6耦合感知的熵量化引擎
 
 > 华为云杯2026 OPC大赛  |  太极矩阵 M3  |  Apache 2.0
