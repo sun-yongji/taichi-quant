@@ -1,12 +1,12 @@
-[![CI](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml/badge.svg)](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml)
+﻿[![CI](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml/badge.svg)](https://github.com/sun-yongji/taichi-quant/actions/workflows/ci.yml)
 
 # TaiChi-Quant ⚖️ C6耦合感知的熵量化引擎
 
-> 华为云杯2026 OPC大赛  |  太极矩阵 M3  |  Apache 2.0
+> 华为云杯2026 OPC大赛  |  太极矩阵 M3  |  CC-BY-SA-4.0
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/)
 [![Tests](https://img.shields.io/badge/tests-28/28-brightgreen.svg)]()
-[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-CC--BY--SA--4.0-green.svg)](LICENSE)
 
 ## 核心创新
 
@@ -58,4 +58,4 @@ print(f"Compression: {weights.nbytes / compressed.nbytes:.1f}x")
 
 ## 许可
 
-Apache 2.0 · 太极量子团队 · 2026
+CC-BY-SA-4.0 · 易宇本源研究中心 · 2026
